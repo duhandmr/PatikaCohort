@@ -1,7 +1,7 @@
 # Drum Kit
 
 Canlı Demo:  
-[Drum Kit]()
+[Drum Kit](https://duhandmr.github.io/PatikaCohort/week%205/drumkit/)
 
 ![Proje Ekran Görüntüsü](images/screenshot.png)
 
