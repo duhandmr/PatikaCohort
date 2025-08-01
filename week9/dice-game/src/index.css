@@ -1,0 +1,129 @@
+body {
+  background: #393e46;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "Quicksand", cursive, Arial, sans-serif;
+}
+
+.container {
+  margin: 40px auto 0 auto;
+  max-width: 540px;
+  background: transparent;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Pacifico", cursive, Arial, sans-serif;
+  color: #fffbe7;
+  font-size: 3rem;
+  margin-bottom: 0.8em;
+  margin-top: 0.2em;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px #0005;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.player-label {
+  font-family: "Indie Flower", cursive, Arial, sans-serif;
+  color: #40e0d0;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+}
+
+.dice-area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 48px;
+  margin: 32px 0 24px 0;
+}
+
+.dice {
+  background: #a60321;
+  border-radius: 18px;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  box-shadow: 0 4px 32px #0003;
+  position: relative;
+}
+
+.dice img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 18px;
+  background: transparent;
+}
+
+/* Buton */
+button {
+  background: #19e68c;
+  color: #393e46;
+  font-size: 2.1rem;
+  padding: 16px 0;
+  margin: 32px 0 12px 0;
+  border: none;
+  border-radius: 12px;
+  width: 320px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-family: "Quicksand", cursive, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: 0 2px 14px #0003;
+}
+button:disabled {
+  background: #45b29d;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Sonuç Metni */
+.result {
+  font-family: "Pacifico", cursive, Arial, sans-serif;
+  font-size: 2.2rem;
+  color: #fffbe7;
+  margin-top: 24px;
+  min-height: 40px;
+  letter-spacing: 2px;
+}
+
+/* Alt Bilgi */
+.footer {
+  margin: 44px 0 16px 0;
+  font-family: "Indie Flower", cursive, Arial, sans-serif;
+  color: #fffbe7;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 99vw;
+    padding: 0;
+  }
+  .dice-area {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .dice {
+    width: 90vw;
+    max-width: 180px;
+    height: 90vw;
+    max-height: 180px;
+  }
+  button {
+    width: 96vw;
+    max-width: 330px;
+    font-size: 1.2rem;
+  }
+}
