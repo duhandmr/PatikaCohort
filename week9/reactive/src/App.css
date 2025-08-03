@@ -1,0 +1,1498 @@
+/* ================================
+   Kendi CSS Reset'im ve Temel Değişkenler
+   Siteyi yönetirken işimi kolaylaştıran ana değerleri burada topladım.
+================================ */
+:root {
+  --primary: #355592; /* Ana renk – koyu mavi. Favorim! */
+  --accent: #f39c12; /* Vurgu için sıcak bir turuncu. */
+  --light-blue: #f5f8fa; /* Açık arka planlar için. */
+  --alternative-gray: #646464; /* Açıklama yazılarında sıkça kullandığım gri. */
+  --white: white; /* Beyaz renk, kopyala-yapıştır kolaylığı için değişkene aldım. */
+  --container-width: 1200px; /* Sayfanın en fazla ne kadar genişleyeceğini buradan ayarlıyorum. */
+  --navbar-height: 64px; /* Navbar yüksekliğini, scroll ve paddinglerde referans olarak kullandım. */
+  --transition: 0.2s all cubic-bezier(0.4, 0, 0.2, 1); /* Tüm geçiş animasyonlarım için ortak değer. */
+}
+
+/* Tüm öğelerin kutu modeli düzgün çalışsın diye box-sizing: border-box kullanıyorum.
+   Margin ve paddingleri de sıfırlıyorum, sıfırdan başlamak bana daha kontrollü geliyor. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Temel font, yazı rengi ve arka plan ayarını burada yapıyorum. 
+   Satır aralığını ve kaydırmayı da daha okunabilir ve yumuşak olsun diye ayarladım. */
+html,
+body {
+  height: 100%;
+  font-family: "Rama Gothic E", Arial, sans-serif;
+  background: var(
+    --bg
+  ); /* Eğer temada bir değişiklik olursa sadece değişkeni değiştiriyorum. */
+  color: var(--text); /* Aynı şekilde ana yazı rengi de burada. */
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Yatay scroll'u hiçbir zaman istemiyorum, özellikle mobilde taşmalar olabiliyor. */
+body {
+  overflow-x: hidden;
+}
+
+/* Tüm görselleri responsive yaptım. Köşe yuvarlaklık için radius ekledim, temada istediğim gibi oynayabiliyorum. */
+img {
+  max-width: 100%;
+  display: block;
+  border-radius: var(--radius);
+}
+
+/* Linklerin altını çizmek yerine sade ve tema uyumlu olsun diye inherit ile renk, none ile alt çizgi ayarladım.
+   Geçiş efektini de aynı şekilde linklerde kullanıyorum. */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+/* Form elemanları (button, input, textarea) sayfadaki yazılarla uyumlu gözüksün istiyorum. 
+   Kenarlık ve arka planı sıfırladım, outline'ı da kaldırdım. */
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+/* Hiçbir yerde madde işareti istemiyorum, hepsini kaldırıyorum. */
+ul {
+  list-style: none;
+}
+
+/* Navbar başlıkların üstünü kapamasın diye, scroll ile bir yere atlayınca section başı alta gelsin diye ayarladım. */
+section {
+  scroll-margin-top: 70px;
+}
+
+/* H2 başlıklarımın altına otomatik accent bir çizgi ekliyorum. 
+   Özellikle bölümleri birbirinden ayırmak için güzel bir vurgu oluyor. */
+h2::after {
+  content: "";
+  display: block;
+  margin: 0.6rem auto 0 auto;
+  width: 80px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 1rem;
+}
+
+/* ================================
+   Container
+   Sayfa içeriğini ortalamak ve kenarlarda boşluk bırakmak için kullanıyorum.
+   Mobilde ise tüm genişliğe yayılıyor.
+================================ */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Değerlendirme 7: Tüm projede olduğu gibi Responsive yalnızca 576px için yapılacaktır. Örnek görsel "Gerekli Dosyalar" içerisinde bulunmaktadır. */
+@media (max-width: 576px) {
+  .container {
+    max-width: 100vw;
+    padding: 0;
+  }
+}
+
+/* ================================
+   Header & Navbar
+   Navbar'ı sabitliyorum, scrolda renk değiştiriyor.
+================================ */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  transition: background 0.3s;
+}
+/* Değerlendirme 5: Sayfada gezinme (scroll) esnasında navbar sürekli sayfa'da görünmeli ve arka planı #355592 olarak ayarlanmalı */
+header.scrolled {
+  background: #355592 !important;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.09);
+}
+
+/* Navbar'ın içeriğini flex ile yatayda dağıtıyorum, renk uyumunu da burada sağladım. */
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+}
+@media (max-width: 576px) {
+  nav .container {
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    min-height: 48px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* Logo'nun yükseklik olarak her zaman navbardan taşmamasını sağladım. */
+.logo img {
+  height: 100%;
+  display: block;
+}
+
+/* ================================
+   Navigasyon Linkleri ve Buton
+================================ */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+@media (max-width: 576px) {
+  .nav-links {
+    gap: 0.7rem;
+    font-size: 1rem;
+  }
+}
+.nav-links li a {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: var(--transition);
+  color: #fff;
+}
+.nav-links li a:hover,
+.nav-links li a.active {
+  background: #fff;
+  color: var(--primary);
+}
+
+/* Üye ol butonunu daha canlı, dikkat çekici ve yumuşak gölgeli yapmayı seviyorum. */
+.join-btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.5rem 1.25rem;
+  font-weight: bold;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px 0 rgba(251, 191, 36, 0.12);
+  margin-left: 1rem;
+}
+@media (max-width: 576px) {
+  .join-btn {
+    padding: 0.45rem 1rem;
+    font-size: 1rem;
+    margin-left: 0;
+    margin-top: 0.7rem;
+  }
+}
+.join-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* Hamburger menüyü sadece mobilde gösteriyorum, üzerine tıklayınca menü açılıyor. */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+.hamburger span {
+  display: block;
+  width: 28px;
+  height: 4px;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+@media (max-width: 576px) {
+  .hamburger span {
+    margin-right: 50px;
+    width: 40px;
+    height: 5px;
+  }
+}
+@media (max-width: 900px) {
+  .nav-links,
+  .join-btn {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Mobil menüyü ekran dışından yana kaydırıyorum, açıldığında ekranı kaplıyor. */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 280px;
+  height: 100vh;
+  background: #355592;
+  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.09);
+  padding: 2rem 1.2rem;
+  z-index: 1500;
+  transition: left 0.35s cubic-bezier(0.61, 0.01, 0.58, 1.03);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.mobile-menu.active {
+  left: 0;
+}
+.mobile-menu ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.mobile-menu .join-btn {
+  margin-top: 1rem;
+  display: inline-block;
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.1rem;
+  cursor: pointer;
+}
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 30, 40, 0.3);
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+.menu-backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+/* Mobil menüdeki linkleri biraz daha büyük ve belirgin yapıyorum.
+   Ayrıca hover olduğunda arka plan ve renk değişiyor, böylece tıklanabilirlik artıyor. */
+.mobile-menu a {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.6rem 0;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+/* Hover durumunda menü linkinin arka planını beyaz yapıyorum ve yazı rengi olarak ana rengi seçiyorum. */
+.mobile-menu a:hover {
+  background: #fff;
+  color: #355592;
+}
+
+/* ================================
+   Hero Bölümü
+   Burada sitenin ana mesajını büyük bir görselin üstünde veriyorum.
+================================ */
+#hero {
+  position: relative;
+  background: url("/hero-man.jpg") center/cover no-repeat;
+  height: 720px;
+  min-height: 480px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding-top: var(--navbar-height); /* Navbar kadar yukardan başlatıyorum. */
+}
+
+.hero-content {
+  border-radius: 1rem;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+/* Küçük etiket gibi bir vurgu ekliyorum. Renk olarak ana rengi kullandım. */
+.hero-content .label {
+  background: var(--primary);
+  color: var(--white);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Hero ana başlığı, büyük ve kalın yaptım çünkü ilk izlenim çok önemli. */
+.hero-content h1 {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+
+/* Hero altında açıklama bölümü. Okunurluğu artırmak için arka plana hafif siyah ekliyorum. */
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: var(--white);
+  font-weight: 700;
+  max-width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+}
+
+/* Hero butonları. Yan yana duruyor ve aralarında boşluk var. */
+.hero-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+.hero-buttons a {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0.2rem 1.5rem;
+  background: var(--primary);
+  font-weight: 700;
+  color: var(--white);
+  transition: var(--transition);
+}
+/* Detaylar butonunu şeffaf ve çerçeveli yaptım, ikisini ayırmak için. */
+.hero-buttons a.details-btn {
+  background: transparent;
+  padding: 0.2rem 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid #fff;
+}
+.hero-buttons a:hover {
+  filter: brightness(0.75);
+}
+
+/* Mobil uyumluluk için hero bölümünü aşağıdaki gibi sadeleştiriyorum. */
+@media (max-width: 576px) {
+  #hero {
+    height: 750px;
+    padding-top: 48px;
+    background-position: center;
+  }
+  #hero .container {
+    padding: 0 0.5rem;
+  }
+  #hero .label {
+    font-size: 20px;
+    font-weight: 900;
+    text-shadow: 2px 2px black;
+  }
+  .hero-content {
+    padding: 1.2rem 0.5rem;
+    max-width: 95vw;
+  }
+  .hero-content br {
+    display: none;
+  }
+  .hero-content h1 {
+    font-size: 3.2rem;
+    font-weight: bolder;
+    text-shadow: 2px 2px black;
+  }
+  .hero-content .hero-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .hero-content .hero-buttons a {
+    padding: 1rem;
+    font-weight: 900;
+    font-size: 1.5rem;
+    border-radius: 4px;
+  }
+}
+
+/* ================================
+   Stats (İstatistikler) Bölümü
+   Kullanıcıya güven ve etki bırakmak için istatistiklerimi burada gösteriyorum.
+================================ */
+#stats {
+  background: #f1f8ff;
+  padding: 2.5rem 0;
+}
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.stat {
+  flex: 1 1 220px;
+  max-width: 262px;
+  min-width: 180px;
+  background: #fff;
+  padding: 0.4rem 1.2rem 1.5rem 1.2rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+}
+.stat p {
+  font-size: 1.8rem;
+  font-weight: bolder;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.stat span {
+  font-size: 1.4rem;
+  font-weight: bolder;
+  color: var(--black);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+@media (max-width: 576px) {
+  #stats {
+    padding: 5rem 0;
+  }
+  .stats-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: nowrap;
+  }
+  .stat {
+    flex: 1 1 160px;
+    min-width: 0;
+    width: 92vw;
+    max-width: 300px;
+    padding: 1.1rem 1rem;
+  }
+  .stat p {
+    font-size: 27px;
+    font-weight: 900;
+  }
+  .stat span {
+    font-size: 24px;
+    font-weight: 900;
+  }
+}
+
+/* ================================
+   Section Başlıkları
+   Tüm bölümlerde başlıkların hem fontunu hem de hizasını buradan ayarlıyorum.
+   Böylece tasarımda bütünlük sağlayabiliyorum.
+================================ */
+section h2 {
+  font-size: 2rem; /* Başlıklarımı yeterince büyük yapıyorum, dikkat çeksin istiyorum. */
+  font-weight: 700; /* Kalın font daha net bir görünüm veriyor. */
+  color: var(--primary); /* Her bölüm başlığında aynı ana rengi kullandım. */
+  margin-bottom: 1.5rem; /* Altına bolca boşluk veriyorum ki başlık ile içerik arasında ferahlık olsun. */
+  text-align: center; /* Hepsini ortaya hizaladım, simetrik bir görünüm seviyorum. */
+}
+/* Mobilde başlık boyutunu küçültüp alt boşluğu biraz azaltıyorum, ekrana daha iyi oturuyor. */
+@media (max-width: 576px) {
+  section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ================================
+   Classes (Dersler/Kategoriler) Bölümü
+   Bu bölümde modern bir arka plan efekti ile dikkat çekmeye çalıştım.
+================================ */
+#classes {
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* Arka plandaki şekiller dışarı taşmasın istedim. */
+}
+/* Arka planı degrade ve kırpılmış bir şekilde veriyorum, göze hoş gelsin diye. */
+#classes::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  min-height: 250px;
+  background: linear-gradient(100deg, #f6f6f6 90%, #f6f6f6 100%);
+  clip-path: polygon(32% 0, 100% 0, 100% 100%, 58% 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+/* Bölümün ana içeriğini hem dikey hem yatay ortalıyorum. */
+.classes-bg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-block: 6rem; /* Üstten ve alttan bol padding hoşuma gidiyor. */
+}
+.classes-top {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.classes-top h2 {
+  position: relative;
+  display: inline-block;
+  font-weight: 900;
+}
+.classes-top p {
+  max-width: 580px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--alternative-gray);
+}
+/* Z-index ile arka plandaki şekil ile içerik birbirine karışmıyor. */
+#classes .classes-bg,
+#classes .container {
+  position: relative;
+  z-index: 1;
+}
+/* Tab menüsünde butonlar arası bol boşluk bıraktım, hem ferah hem de dokunması kolay oluyor. */
+.class-tabs {
+  display: flex;
+  gap: 9rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.class-tabs_left,
+.class-tabs_right {
+  display: flex;
+  gap: 9rem;
+}
+/* Sekme butonlarını dikkat çekici ve buton gibi kalın/köşeli yapıyorum. */
+.class-tabs button {
+  position: relative;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 5px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+/* Aktif sekmede vurgu rengini kullanıp, kullanıcıya seçimini net gösteriyorum. */
+.class-tabs button.active {
+  background: var(--accent);
+  color: #fff;
+  transition: all 0.2s;
+}
+/* Aktif sekmenin altında minik bir üçgen işaret beliriyor, görsel ipucu olarak. */
+.class-tabs button.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 9px solid var(--accent);
+  z-index: 2;
+}
+/* Tab içeriklerinde koyu gri tonunu tercih ettim, kontrastı daha iyi. */
+.class-contents {
+  color: #4e4e4e !important;
+}
+/* Her tabda sadece aktif olan içeriğin görünmesini sağladım. Geçişe fadeIn animasyonu ekledim. */
+.class-content {
+  display: none;
+  padding: 1.5rem 0;
+  animation: fadeIn 0.25s;
+  align-items: center;
+  gap: 2.5rem;
+}
+.class-content.active {
+  display: flex;
+}
+/* Sol taraftaki açıklama kısmı, sağda ise görsel. İkisini esnek tuttum. */
+.class-info {
+  flex: 1 1 300px;
+}
+.class-info h3 {
+  margin-bottom: 0.7rem;
+  font-size: 30px;
+  font-weight: 800;
+}
+.class-info p {
+  font-weight: 900;
+  max-width: 500px;
+  text-align: justify;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+.class-info ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.class-info ul li {
+  font-weight: 800;
+}
+.class-image {
+  flex: 1 1 220px;
+  display: flex;
+  justify-content: flex-end;
+}
+.class-image img {
+  max-width: 720px;
+  width: 100%;
+  height: auto;
+}
+/* Mobil uyumluluk için, tabları ve içerikleri daha küçük, alt alta ve boşluklu gösteriyorum. */
+@media (max-width: 576px) {
+  .class-tabs {
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .class-tabs_left,
+  .class-tabs_right {
+    flex-direction: row;
+    gap: 6rem;
+  }
+  .class-tabs button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    min-width: 95px;
+  }
+  .class-tabs button.active::after {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 7px solid var(--accent);
+    bottom: -7px;
+  }
+  .class-contents {
+    color: #4e4e4e !important;
+  }
+  .class-content {
+    flex-direction: column !important;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  .class-info {
+    text-align: left;
+    padding: 0.7rem 2rem;
+  }
+  .class-image {
+    justify-content: center;
+    margin-top: 0.6rem;
+  }
+  .class-image img {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+/* Sekme geçişlerinde fadeIn animasyonu kullanıyorum, göz yormasın diye yumuşak bir efekt. */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ================================
+   BMI Hesaplama Bölümü
+   Kullanıcıya etkileşim sunmak için yan yana iki sütun yaptım.
+================================ */
+#bmi {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.bmi-left {
+  flex: 1 1 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.bmi-left h3 {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--primary);
+}
+.bmi-left p {
+  font-size: 15px;
+  font-weight: bolder;
+  width: 400px;
+}
+.bmi-left .bmi-form {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  width: 350px;
+}
+.bmi-left .bmi-form input {
+  padding: 4px;
+  border: 1px solid black;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.bmi-right {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bmi-image-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.7rem;
+}
+.bmi-image-wrapper img {
+  width: 100%;
+  display: block;
+}
+#bmi-arrow {
+  position: absolute;
+  left: 0;
+  bottom: -18px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 20px solid orange;
+  display: none;
+  transition: left 0.5s cubic-bezier(0.4, 2, 0.5, 1), border-top-color 0.3s;
+  z-index: 2;
+  transform: rotate(180deg);
+}
+.bmi-right-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+/* Mobilde, iki sütunu alt alta alıyorum ve paddinglerle okunaklı hale getiriyorum. */
+@media (max-width: 576px) {
+  #bmi {
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    padding: 0rem 2rem;
+  }
+  #bmi h3 {
+    font-size: 35px;
+    font-weight: 900;
+  }
+  /* Formu mobilde alt alta alıyorum, boşluğu minimuma indiriyorum. */
+  .bmi-form {
+    flex-direction: column;
+    gap: 0px !important;
+  }
+  /* Sol ve sağ kutuları esnek bırakıyorum, mobilde alt alta gelsin diye. */
+  .bmi-left,
+  .bmi-right {
+    flex: auto;
+  }
+  /* BMI görseli mobilde ekranın neredeyse tamamını kaplasın istedim. */
+  .bmi-image-wrapper img {
+    max-width: 96vw;
+  }
+  /* Ok işaretinin boyutunu da küçültüp konumunu ayarlıyorum. */
+  #bmi-arrow {
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 14px solid orange;
+    bottom: -12px;
+  }
+}
+
+/* ================================
+   Trainers (Eğitmenler) Bölümü
+   Bu bölümde eğitmen kartlarına hem hover efekti hem de ufak detaylar ekledim.
+
+   Değerlendirme 2 : "Our Best Trainers" alanında son görsel, alanda bulunan diğer içeriklerin "hover" ön izlemesidir. 3 öğe için de çalışıyor olmalı. (3. Resim "hover" için örnektir. normalde 1 ve 2 gibi görünmeli)
+================================ */
+#trainers {
+  background: var(--light-blue);
+  padding: 3rem 0;
+}
+/* Eğitmen bölümünün üst kısmını ortaya hizalıyorum. */
+#trainers .container > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+/* Eğitmen başlığını daha büyük ve belirgin yaptım, tamamı büyük harfli. */
+#trainers h2 {
+  font-size: 35px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+/* Açıklama kısmı sade ve merkezi, rengi gri. */
+#trainers p {
+  max-width: 580px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--alternative-gray);
+  text-align: center;
+}
+/* Eğitmen kartlarını yan yana dizip aralara boşluk bırakıyorum, responsive için wrap da verdim. */
+.trainers-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+/* Her eğitmen kartı için kutu, köşe yuvarlatma ve gölge verdim. */
+.trainer-card {
+  position: relative;
+  width: 320px;
+  height: 370px;
+  border-radius: 10px;
+  background: #fff;
+  border: 2px solid #fbbf24;
+  transition: box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Eğitmen fotoğraflarının kutudan taşmaması için border-radius uyguluyorum. */
+.trainer-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+/* Kartın kenarlarına dört köşe için küçük bar'lar ekliyorum, hover'da animasyonlu büyüyorlar. */
+.bar {
+  position: absolute;
+  background: #355592;
+  z-index: 2;
+  transition: background 0.23s;
+}
+.bar.left,
+.bar.right {
+  width: 10px;
+  height: 125px;
+  background: #355592;
+  position: absolute;
+  z-index: 3;
+  transition: height 0.35s cubic-bezier(0.5, 2, 0.5, 1), background 0.2s;
+}
+.bar.left {
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.bar.right {
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.bar.top,
+.bar.bottom {
+  width: 125px;
+  height: 10px;
+  background: #355592;
+  position: absolute;
+  z-index: 3;
+  transition: width 0.35s cubic-bezier(0.5, 2, 0.5, 1), background 0.2s;
+}
+.bar.top {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bar.bottom {
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Hover'da bar'ları büyütüp dinamik bir çerçeve efekti oluşturuyorum. */
+.trainer-card:hover .bar.left,
+.trainer-card:hover .bar.right {
+  height: 220px;
+  transform: translatey(-40%);
+}
+.trainer-card:hover .bar.bottom {
+  width: 220px;
+}
+/* Eğitmen hakkında minik bir pop-up açıklama kutusu. Hover'da ortaya çıkıyor. */
+.trainer-info-pop {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(40px);
+  transition: opacity 0.23s, transform 0.23s;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 32px;
+  margin: auto;
+  width: 63%;
+  background: #355592;
+  color: #fff;
+  padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+  text-align: center;
+  z-index: 3;
+}
+.trainer-info-pop .trainer-name {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.trainer-info-pop .trainer-role {
+  font-size: 1.03rem;
+  font-weight: 600;
+  opacity: 0.96;
+}
+/* Hover olunca pop-up aniden değil yumuşak bir şekilde görünüyor. */
+.trainer-card:hover .trainer-info-pop {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+/* Pop-up'ın kenarına ekstra kutucuklar ekledim, görsel olarak zenginleştiriyor. */
+.trainer-info-pop::before {
+  content: "";
+  position: absolute;
+  left: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 58px;
+  background: #355592;
+  box-shadow: 0 2px 8px rgba(53, 85, 146, 0.08);
+}
+.trainer-info-pop::after {
+  content: "";
+  position: absolute;
+  right: -35px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 58px;
+  background: #355592;
+  box-shadow: 0 2px 8px rgba(53, 85, 146, 0.08);
+}
+/* Eğitmenler bölümünü mobilde alt alta, bol boşluklu gösteriyorum. */
+@media (max-width: 576px) {
+  .trainers-list {
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+  }
+  .trainer-card {
+    min-width: unset;
+    max-width: 98vw;
+    padding: 1rem 0.6rem;
+  }
+}
+
+/* ================================
+   Products (Ürünler) Bölümü
+   Ürünleri kutu şeklinde, modern ve gölgeli kartlar halinde gösteriyorum.
+================================ */
+#products {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+/* Bölüm başlığı ve açıklama kısmını ortaya hizaladım. */
+#products > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+#products h2 {
+  font-size: 35px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+#products p {
+  max-width: 580px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--alternative-gray);
+  text-align: center;
+}
+/* Ürün kartlarını hem esnek hem de gölgeli gösteriyorum. */
+.products-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-radius: 16px;
+  box-shadow: 0 6px 40px 0 rgba(53, 85, 146, 0.2);
+  justify-content: center;
+}
+.product-card {
+  flex: 1;
+  background: var(--white);
+  overflow: hidden;
+  width: 265px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  box-shadow: 0 6px 40px 0 rgba(53, 85, 146, 0.2);
+  position: relative;
+  transition: box-shadow 0.18s;
+}
+/* Sepete ekle butonuna hover'da vurgulu renk ve ikonlarda da renk değişimi veriyorum. */
+.product-card:hover .add-cart-btn {
+  background: var(--accent);
+  color: var(--white);
+}
+.product-card img {
+  object-fit: cover;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+.product-info {
+  padding: 0.1rem 1rem 1rem 1rem;
+  width: 100%;
+  text-align: center;
+}
+.product-info h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.product-prices {
+  margin-bottom: 1.1rem;
+}
+.price {
+  color: var(--black);
+  font-size: 1rem;
+  font-weight: 700;
+}
+/* Sepete ekle butonunu tüm genişliğe yayıyorum, dikkat çekici olsun diye. */
+.add-cart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 150px;
+  background: transparent;
+  border: none;
+  color: #222;
+  font-weight: 800;
+  font-size: 1.06rem;
+  cursor: pointer;
+  padding: 0.35rem 0.7rem;
+  border-radius: 1rem;
+  position: relative;
+  transition: background 0.18s;
+  gap: 0;
+}
+.cart-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  min-width: 30px;
+  height: 100%;
+}
+.cart-icon.fake {
+  visibility: hidden;
+}
+.cart-btn-text {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+/* Ürün kartlarını mobilde alt alta, kenarlarda boşluklu ve daha sade gösteriyorum. */
+@media (max-width: 576px) {
+  .products-list {
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: none;
+  }
+  .product-card {
+    min-width: unset;
+    max-width: 98vw;
+  }
+}
+
+/* ================================
+   Reviews (Yorumlar) Bölümü
+   Kullanıcı deneyimini ve güveni artırmak için referansları burada öne çıkarıyorum.
+================================ */
+#review {
+  background: var(
+    --light-blue
+  ); /* Açık arka plan daha samimi bir his veriyor. */
+  padding: 3rem 0 9rem 0;
+}
+/* Bölüm başlığını net ve büyük yaptım. */
+#review h2 {
+  color: var(--primary);
+  font-size: 2.2rem;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: -1px;
+}
+/* Açıklama kısmını merkezi ve gri tonlu tuttum. */
+.review-desc {
+  text-align: center;
+  font-weight: 700;
+  color: var(--alternative-gray);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Yorum kartlarını yan yana ve aralıklı gösteriyorum, wrap sayesinde mobilde alta geçiyor. */
+.reviews-list {
+  display: flex;
+  justify-content: center;
+  gap: 7rem;
+  flex-wrap: wrap;
+}
+/* Her yorum için esnek ve geniş kutu ayarladım. */
+.review-card {
+  min-width: 320px;
+  max-width: 505px;
+  display: flex;
+  flex-direction: column;
+}
+/* Yorum yapan kişinin profil kısmı, avatar ve isim yanyana. */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.review-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px 0 rgba(20, 83, 137, 0.09);
+}
+.review-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #222;
+}
+.review-title {
+  font-size: 0.88rem;
+  color: #666;
+  font-weight: 500;
+  margin-top: 1px;
+}
+/* Yorum kutusunun arka planını ana renk yaptım. */
+.review-box {
+  position: relative;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+/* Kutunun altında iki yanda üçgen gölge efekti var. */
+.review-box::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 15px;
+  width: 0;
+  height: 0;
+  border: 35px solid transparent;
+  border-top-color: #8096be;
+  border-bottom: 0;
+  border-right: 0;
+  margin-left: -15px;
+  margin-bottom: -30px;
+}
+.review-box::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  right: -1px;
+  width: 0;
+  height: 0;
+  border: 35px solid transparent;
+  border-top-color: #8096be;
+  border-bottom: 0;
+  border-left: 0;
+  margin-left: -15px;
+  margin-bottom: -30px;
+}
+/* Mobilde yorumları alt alta dizip boşlukları azaltıyorum. */
+@media (max-width: 576px) {
+  .reviews-list {
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+  }
+  .review-card {
+    padding: 1rem 0.6rem;
+  }
+}
+
+/* ================================
+   Contact (İletişim) Bölümü
+   Kullanıcıların hızlıca bana ulaşabilmesi için hem form hem harita kullandım.
+================================ */
+#contact {
+  padding: 3rem 0;
+}
+.contact-desc {
+  text-align: center;
+  font-weight: 700;
+  color: var(--alternative-gray);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Form ve haritayı yan yana esnek kutular halinde diziyorum. */
+.contact-content {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: space-evenly;
+  align-items: stretch;
+  flex-wrap: wrap;
+  padding: 2rem 1.5rem;
+}
+/* Hem form hem harita kutuları için köşe yuvarlatma ve esneklik verdim. */
+.contact-form,
+.contact-map {
+  flex: 1 1 420px;
+  min-width: 340px;
+  max-width: 480px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+/* Harita kutusunda özel arka plan olmasın diye arka planı kaldırdım. */
+.contact-map {
+  padding: 0;
+  background: none;
+  align-items: center;
+  justify-content: center;
+}
+/* İletişim bilgileri satırda yanyana, net ve sade renklerde. */
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin-bottom: 15px;
+}
+.contact-info p {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--alternative-gray);
+}
+.contact-info span {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--alternative-gray);
+}
+/* Formu dikeyde aralıklı ve sade tuttum. */
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.7rem;
+}
+.contact-form h3 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--alternative-gray);
+}
+.contact-form form div {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+/* Form inputlarını ve textarea'yı daha yumuşak, açık mavi arka planla gösteriyorum. */
+.contact-form input,
+.contact-form textarea {
+  padding: 0.5rem 1rem;
+  background: #f1f8ff;
+  resize: vertical;
+  font-size: 1.1rem;
+}
+.contact-form textarea {
+  min-height: 90px;
+  max-height: 200px;
+}
+/* Gönder butonunu ana renkli ve yumuşak köşeli yapıyorum, hover'da koyulaşıyor. */
+.contact-form button {
+  background: var(--primary, #355592);
+  color: #fff;
+  border-radius: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: background 0.22s;
+}
+.contact-form button:hover {
+  background: #22365e;
+}
+/* Harita embed için tüm kutuyu doldurmasını sağlıyorum. */
+.contact-map iframe {
+  width: 100%;
+  min-height: 350px;
+  height: 100%;
+  border: none;
+  display: block;
+  border-radius: 14px;
+}
+/* Mobilde form ve harita alt alta geliyor, paddingleri küçültüyorum. */
+@media (max-width: 576px) {
+  #contact h2 {
+    color: var(--primary);
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: -1px;
+  }
+  .contact-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    padding: 1.2rem 0.6rem;
+  }
+  .contact-form,
+  .contact-map {
+    max-width: 100%;
+    min-width: unset;
+    width: 100%;
+    padding: 1.3rem 0.7rem;
+  }
+  .contact-map iframe {
+    min-height: 230px;
+  }
+}
+
+/* ================================
+   Footer (Alt Bilgi) Bölümü
+   Alt kısmı hem modern hem de okunaklı tutmaya çalıştım.
+================================ */
+footer {
+  background: var(--primary);
+  color: var(--white);
+  width: 100vw;
+}
+.footer-content {
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.footer-desc {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  margin-top: 0.2rem;
+  line-height: 1.5;
+}
+/* Footer'da linkler arasında bol boşluk var, üç sütun gibi hizaladım. */
+.footer-links {
+  display: flex;
+  gap: 6rem;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+  text-align: start;
+}
+.footer-links > div {
+  min-width: 160px;
+}
+.footer-links h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+.footer-links a {
+  transition: color 0.2s;
+  font-weight: 500;
+  font-size: 1.08rem;
+}
+.footer-links a:hover {
+  color: #fbbf24;
+}
+/* Mobilde footer sütunlarını sıklaştırıyorum, paddingi azaltıyorum. */
+@media (max-width: 576px) {
+  .footer-content {
+    padding-inline: 0.5rem;
+  }
+  .footer-links {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 0.7rem;
+    text-align: start;
+  }
+  .footer-links > div {
+    min-width: unset;
+    text-align: start;
+  }
+  .footer-top {
+    margin-bottom: 0.5rem;
+  }
+  .footer-desc {
+    font-size: 0.98rem;
+    padding: 0 0.5rem;
+  }
+}
+
+/* ================================
+   Genel Responsive Kalanlar
+   Mobilde yazı boyutu, taşma ve bar genişliklerini burada ayarlıyorum.
+================================ */
+@media (max-width: 576px) {
+  html {
+    font-size: 14px; /* Mobilde metni biraz küçültüyorum ki sıkışıklık olmasın. */
+  }
+  body {
+    overflow-x: hidden; /* Yana taşmaları tamamen önlüyorum. */
+  }
+  .bmi-bar {
+    max-width: 98vw;
+    min-width: 140px;
+  }
+}
