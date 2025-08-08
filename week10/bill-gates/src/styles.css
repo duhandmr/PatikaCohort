@@ -1,0 +1,124 @@
+:root {
+  --green: #14b86e;
+  --green2: #0aa565;
+  --muted: #6c757d;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: system-ui, Segoe UI, Roboto, Inter, sans-serif;
+  background: #f5f7fb;
+}
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(90deg, var(--green), var(--green2));
+  color: #fff;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  padding: 16px 0;
+  box-shadow: 0 4px 16px #0001;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #0001;
+  padding: 16px;
+}
+.title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.price {
+  color: #18a058;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.actions .qty {
+  width: 64px;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.buy {
+  background: #1fb874;
+  color: #fff;
+}
+.sell {
+  background: #e9ecef;
+}
+.receipt {
+  max-width: 540px;
+  margin: 28px auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #0001;
+  padding: 20px;
+}
+.receipt h2 {
+  text-align: center;
+  margin: 0 0 12px;
+}
+.receipt ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.receipt li {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f2f5;
+}
+.receipt li:last-child {
+  border-bottom: 0;
+}
+.muted {
+  color: var(--muted);
+}
+.amount {
+  color: #18a058;
+  font-weight: 600;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 2px solid #0002;
+  margin-top: 10px;
+  font-weight: 700;
+}
