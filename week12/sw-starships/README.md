@@ -24,8 +24,8 @@ Bu proje, **[SWAPI.tech](https://www.swapi.tech/)** API'sini kullanarak Star War
 ## 🔧 Kurulum ve Çalıştırma
 ```bash
 # Depoyu klonla
-git clone https://github.com/kullanici/starwars-starships.git
-cd starwars-starships
+git clone https://github.com/duhandmr/sw-starships.git
+cd sw-starships
 
 # Bağımlılıkları yükle
 npm install
